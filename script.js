@@ -1,13 +1,18 @@
 const squareset = [];
 const squares = document.querySelectorAll('.square');
 const start = document.querySelector('.start-btn');
-const squareToMatch = document.querySelector('.target-square');
+let squareToMatch = document.querySelector('.target-square');
 
 squares.forEach(square => squareset.push(square.id));
-console.log(squareset);
+
+function rndSq(set) {
+    return set[Math.floor(Math.random()* set.length)];
+}
+
+let randomSquare = rndSq(squareset);
 
 squares.forEach(square => {
-    square.addEventListener('click', showCoords);
+    square.addEventListener('click', countScore);
 })
 
 function showCoords(e){
@@ -33,4 +38,20 @@ function startCountdown(count){
 
 function startGame(){
     console.log('game started')
+    squareToMatch.innerText = randomSquare;
+}
+
+let score = 0;
+
+function countScore(e) {
+    if(e.target.id == randomSquare) {
+        score++
+        // stats.innerHTML = score;
+        randomSquare = rndSq(squareset);
+        squareToMatch.innerHTML = randomSquare;
+    } else {
+        // stats.innerHTML = score;
+        randomSquare = rndSq(squareset);
+        squareToMatch.innerHTML = randomSquare;
+    };
 }
