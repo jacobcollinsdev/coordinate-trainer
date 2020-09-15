@@ -108,6 +108,6 @@ function endGame(){
     squareToMatch.innerHTML = '';
     tries = 0;
     score = 0;
-    board.style.pointerEvents = 'all';
+    board.style.pointerEvents = 'none';
     start.disabled = false;
 }
