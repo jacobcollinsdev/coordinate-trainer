@@ -69,7 +69,7 @@ function countScore(e) {
     total.innerHTML = score;
     accuracy.innerHTML = `${accuracyPercentage}%`;
 
-    countAccuracy(accuracyPercentage);
+    // countAccuracy(accuracyPercentage);
     
 }
 
