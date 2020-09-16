@@ -10,7 +10,7 @@ const scoreBox = document.querySelector('.score-box');
 const timeLeft = document.querySelector('.time-progress');
 const message = document.querySelector('.message');
 const audio = document.querySelector('audio');
-const settings = document.querySelector('.settings');
+const settings = document.querySelector('.cog');
 const modal = document.querySelector('.modal');
 const soundToggle = document.querySelector('.sound-toggle');
 const hintsToggle = document.querySelector('.hints-toggle');
@@ -18,34 +18,12 @@ const files = document.querySelectorAll('.file');
 const ranks = document.querySelectorAll('.rank');
 const close = document.querySelector('.close');
 const results = document.querySelector('.results');
-
-hintsToggle.addEventListener('click', ()=>{
-    if(hintsToggle.checked){
-        files.forEach(file => file.style.display = 'block');
-        ranks.forEach(rank => rank.style.display = 'block');       
-    }else{
-        files.forEach(file => file.style.display = 'none');
-        ranks.forEach(rank => rank.style.display = 'none');   
-    }
-})
-
-close.addEventListener('click', ()=>{
-    modal.style.display = 'none';
-})
-
-modal.addEventListener('click', (e)=>{
-    if(e.target.className == 'modal'){
-        modal.style.display = 'none';
-    }
-})
-
-settings.addEventListener('click', ()=>{
-    modal.style.display = 'flex';
-})
+const resultsTable = document.querySelector('.results-table');
 
 
 squares.forEach(square => squareset.push(square.id));
 
+//Generate random coordinate
 function rndSq(set) {
     return set[Math.floor(Math.random()* set.length)];
 }
@@ -63,6 +41,8 @@ function showCoords(e){
 start.addEventListener('click', ()=>{
     startCountdown(3)}
 );
+
+//Start 321 Countdown
 
 let count = 3;
 
@@ -86,15 +66,20 @@ function startCountdown(count){
     accuracy.innerHTML = '%';
 }
 
+let duration = 20;
+
+//Start Game
 function startGame(){
     board.style.pointerEvents = 'all';
     squareToMatch.innerText = randomSquare;
     timeLeft.style.display = 'block';
-    timerCount(20);
+    timerCount(duration);
 }
 
+//Count Score and Accuracy
 let score = 0;
 let tries = 0;
+let accuracyPercentage;
 
 function countScore(e) {
     if(e.target.id == randomSquare) {
@@ -108,45 +93,28 @@ function countScore(e) {
     randomSquare = rndSq(squareset);
     squareToMatch.innerHTML = randomSquare;
     tries++;
-    let accuracyPercentage = Math.round((score/tries)*100); 
+    accuracyPercentage = Math.round((score/tries)*100); 
     total.innerHTML = score;
     accuracy.innerHTML = `${accuracyPercentage}%`;
-
-    // countAccuracy(accuracyPercentage);
-    
 }
 
-function countAccuracy(value){
-    if(value < 50){
-        accuracyBox.classList.remove('medium');
-        accuracyBox.classList.remove('correct');
-        accuracyBox.classList.add('low');
-    } else if (value < 75){
-        accuracyBox.classList.remove('low');
-        accuracyBox.classList.remove('correct');
-        accuracyBox.classList.add('medium')
-    } else{
-        accuracyBox.classList.remove('medium');
-        accuracyBox.classList.remove('low');
-        accuracyBox.classList.add('correct');
-    }
-}
-
+//Countdown bar
 function timerCount(time){
     if(time === 0){
         endGame();
     }
     let width = 100;
-    let duration = 20;
     setTimeout(()=>{
         timerCount(--time);
     }, 1000)
 
-    timeLeft.style.width = (time/20)*100 + '%';
-
+    timeLeft.style.width = (time/duration)*100 + '%';
 }
 
+//Reset Scores and Styles
+
 function endGame(){
+    updateTable();
     timeLeft.style.display = 'none';
     squareToMatch.innerHTML = '';
     tries = 0;
@@ -155,3 +123,45 @@ function endGame(){
     start.disabled = false;
     results.style.display = 'block';
 }
+
+//Update Results Table
+let attempts = 0;
+
+function updateTable(){
+    attempts++;
+    let newRow = resultsTable.insertRow(-1);
+    let cell1 = newRow.insertCell(0);
+    let cell2 = newRow.insertCell(1);
+    let cell3 = newRow.insertCell(2);
+
+    cell1.innerHTML = attempts;
+    cell2.innerHTML = score;
+    cell3.innerHTML = `${accuracyPercentage}%`;
+}
+
+//Game Settings & Modal Toggle
+
+hintsToggle.addEventListener('click', ()=>{
+    if(hintsToggle.checked){
+        files.forEach(file => file.style.display = 'block');
+        ranks.forEach(rank => rank.style.display = 'block');       
+    }else{
+        files.forEach(file => file.style.display = 'none');
+        ranks.forEach(rank => rank.style.display = 'none');   
+    }
+})
+
+settings.addEventListener('click', ()=>{
+    modal.style.display = 'flex';
+})
+
+modal.addEventListener('click', (e)=>{
+    if(e.target.className == 'modal'){
+        modal.style.display = 'none';
+    }
+})
+
+close.addEventListener('click', ()=>{
+    modal.style.display = 'none';
+})
+
