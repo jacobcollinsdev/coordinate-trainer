@@ -8,6 +8,41 @@ const accuracy = document.querySelector('.percentage');
 const accuracyBox = document.querySelector('.accuracy-box');
 const scoreBox = document.querySelector('.score-box');
 const timeLeft = document.querySelector('.time-progress');
+const message = document.querySelector('.message');
+const audio = document.querySelector('audio');
+const settings = document.querySelector('.settings');
+const modal = document.querySelector('.modal');
+const soundToggle = document.querySelector('.sound-toggle');
+const hintsToggle = document.querySelector('.hints-toggle');
+const files = document.querySelectorAll('.file');
+const ranks = document.querySelectorAll('.rank');
+const close = document.querySelector('.close');
+const results = document.querySelector('.results');
+
+hintsToggle.addEventListener('click', ()=>{
+    if(hintsToggle.checked){
+        files.forEach(file => file.style.display = 'block');
+        ranks.forEach(rank => rank.style.display = 'block');       
+    }else{
+        files.forEach(file => file.style.display = 'none');
+        ranks.forEach(rank => rank.style.display = 'none');   
+    }
+})
+
+close.addEventListener('click', ()=>{
+    modal.style.display = 'none';
+})
+
+modal.addEventListener('click', (e)=>{
+    if(e.target.className == 'modal'){
+        modal.style.display = 'none';
+    }
+})
+
+settings.addEventListener('click', ()=>{
+    modal.style.display = 'flex';
+})
+
 
 squares.forEach(square => squareset.push(square.id));
 
@@ -40,7 +75,15 @@ function startCountdown(count){
             startCountdown(--count)}
             , 1000);
     }
+    if(soundToggle.checked){
+        audio.play();
+    }
     start.disabled = true;
+    message.style.display = 'none';
+    scoreBox.classList.remove('incorrect');
+    scoreBox.classList.remove('correct');
+    total.innerHTML = 0;
+    accuracy.innerHTML = '%';
 }
 
 function startGame(){
@@ -110,4 +153,5 @@ function endGame(){
     score = 0;
     board.style.pointerEvents = 'none';
     start.disabled = false;
+    results.style.display = 'block';
 }

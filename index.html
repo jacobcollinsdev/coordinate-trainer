@@ -4,9 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Chess Vision Trainer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <title>Chess Speed Trainer</title>
 </head>
 <body>
+    <header>
+        <nav>
+            Chess Speed Trainer
+        </nav>
+    </header>
     <div class="container">
         <div class="board-wrapper">
             <div class="board">
@@ -84,6 +90,11 @@
                 <div class="square dSq" id="g1"><div class="file">g</div></div>
                 <div class="square lSq" id="h1"><div class="file">h</div></div>
             </div>
+
+            <div class="settings">
+                <button><i class="fas fa-cog"></i></button>
+            </div>
+
             <div class="time-progress"></div>
         </div>
 
@@ -100,14 +111,54 @@
             </div>
 
             <div class="message">
-                <h3>Welcome</h3>
+                <h3>Welcome to the Chess Speed Trainer</h3>
                 <p>In chess, speed and accuracy can often be the difference between victory and defeat. Knowing your way around the board will you give a distinct advantage over your opponents.</p>
                 <p>When you click start, a co-ordinate will appear for you to click on the board. You have 20 seconds to get as many correct as possible. Good luck!</p>
+            </div>
+
+            <div class="results">
+                <table>
+                    <tr>
+                        <th>Attempt</th>
+                        <th>Score</th>
+                        <th>Accuracy</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>9</td>
+                        <td>100%</td>
+                    </tr>
+                </table>
             </div>
 
         </div>
         
     </div>
+
+    <div class="modal">
+        <div class="modal-inner">
+            <h2>Settings</h2>
+            <div class="setting">
+                <h3>Sound</h3>
+                <label class="switch">
+                    <input class="sound-toggle" type="checkbox" checked>
+                    <span class="slider"></span>
+                  </label>
+            </div>
+
+            <div class="setting">
+                <h3>Hints</h3>
+                <label class="switch">
+                    <input class="hints-toggle" type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <button class="close">Close</button>
+        </div>
+    </div>
+
+    <audio src="audio/Count-Down.mp3"></audio>
 
 
     <script src="script.js"></script>
