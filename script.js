@@ -20,7 +20,6 @@ const close = document.querySelector('.close');
 const results = document.querySelector('.results');
 const resultsTable = document.querySelector('.results-table');
 
-
 squares.forEach(square => squareset.push(square.id));
 
 //Generate random coordinate
@@ -34,16 +33,11 @@ squares.forEach(square => {
     square.addEventListener('click', countScore);
 })
 
-function showCoords(e){
-    console.log(e.target.id);
-}
-
 start.addEventListener('click', ()=>{
     startCountdown(3)}
 );
 
 //Start 321 Countdown
-
 let count = 3;
 
 function startCountdown(count){
@@ -66,6 +60,7 @@ function startCountdown(count){
     accuracy.innerHTML = '%';
 }
 
+//Game Duration
 let duration = 20;
 
 //Start Game
@@ -112,7 +107,6 @@ function timerCount(time){
 }
 
 //Reset Scores and Styles
-
 function endGame(){
     updateTable();
     timeLeft.style.display = 'none';
@@ -140,7 +134,6 @@ function updateTable(){
 }
 
 //Game Settings & Modal Toggle
-
 hintsToggle.addEventListener('click', ()=>{
     if(hintsToggle.checked){
         files.forEach(file => file.style.display = 'block');
