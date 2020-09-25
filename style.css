@@ -368,8 +368,16 @@ footer a{
 }
 
 @media screen and (min-width:1000px){
+    nav{
+        width:900px;
+    }
     .board{
         width:500px;
         height:500px;
     }
+
+    .board-wrapper{
+        width:506px;
+    }
+
 }
